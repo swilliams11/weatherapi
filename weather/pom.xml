@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>parent-pom</artifactId>
+        <groupId>dhp</groupId>
+        <version>1.0</version>
+        <relativePath>../parent-pom/pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>dhp</groupId>
+    <artifactId>measurementObservation</artifactId>
+    <version>1.0</version>
+    <name>measurementObservation</name>
+    <packaging>pom</packaging>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>auto-clean</id>
+                        <phase>initialize</phase>
+						<!--<configuration><skip>true</skip></configuration>-->
+						<!--<phase>package</phase>-->
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+					<!--<execution>
+                        <id>auto-clean_deploy</id>
+                        <phase>deploy</phase>						
+						<configuration>
+							<skip>false</skip>
+						</configuration>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>-->
+                </executions>
+            </plugin>
+			<plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+						<id>copy-resources-step</id>
+                        <phase>package</phase>
+						
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <skip>true</skip> <!--this does not work for this plugin-->
+							<!-- this is important -->
+                            <overwrite>true</overwrite>
+                            <!-- target -->
+                            <outputDirectory>${basedir}/target/apiproxy</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <!-- source -->
+                                    <directory>apiproxy</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>					
+                </executions>				
+            </plugin> 		
+           <plugin>
+                <groupId>io.apigee.build-tools.enterprise4g</groupId>
+                <artifactId>apigee-edge-maven-plugin</artifactId>                
+                <executions>
+                <execution>
+					<id>configure-bundle-step</id>
+					<phase>package</phase>
+					<configuration>
+						<skip>false</skip>
+					</configuration>
+					<goals>
+						<goal>configure</goal>
+					</goals>
+                </execution>				
+             </executions>
+        </plugin>    
+        </plugins>
+    </build>
+
+</project>
+

@@ -1,0 +1,10 @@
+var accesscode = context.getVariable("request.queryparam.w");
+var pathsuffix = context.getVariable("proxy.pathsuffix");
+var targeturl  = context.getVariable("target.url");
+context.setVariable("target.copy.queryparams", false); //do not copy the query parameters
+
+if(accesscode != null){
+  pathsuffix = pathsuffix + "/" + accesscode;
+}
+
+context.setVariable("target.url", targeturl + pathsuffix);
